@@ -106,7 +106,28 @@ class TicketItem extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            const Divider(style: BorderStyle.dashed), // Dashed line effect simulation
+            // Custom Dashed Line Implementation
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final boxWidth = constraints.constrainWidth();
+                const dashWidth = 8.0;
+                const dashHeight = 1.0;
+                final dashCount = (boxWidth / (2 * dashWidth)).floor();
+                return Flex(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  direction: Axis.horizontal,
+                  children: List.generate(dashCount, (_) {
+                    return SizedBox(
+                      width: dashWidth,
+                      height: dashHeight,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(color: Colors.grey[300]),
+                      ),
+                    );
+                  }),
+                );
+              },
+            ),
             const SizedBox(height: 16),
             Row(
               children: [
